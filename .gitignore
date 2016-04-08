@@ -1,4 +1,7 @@
 *.dxf
+*.bak
+*.dwl
+*.dwl2
 
 # Windows image file caches
 Thumbs.db
