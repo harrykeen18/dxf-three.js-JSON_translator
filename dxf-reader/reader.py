@@ -1,49 +1,65 @@
 
-import_list = open("test.dxf").readlines()
 
-for n, i in enumerate(import_list):
-	if "\n" in i:
-		import_list[n] = i.replace('\n','')
+def import_scan():
 
-for n, i in enumerate(import_list):
+	import_list = open("test.dxf").readlines()
 
-	if "POLYLINE" in i:
+	for n, i in enumerate(import_list):
+		if "\n" in i:
+			import_list[n] = i.replace('\n','')
 
-		# find index of next 'seqend' to find end of polyline feature
-		p_end = 0
-		p_add = 1
-		p_boo = False
-		while p_boo == False:
-			if "SEQEND" in import_list[n + p_add]:
-				p_end = n + p_add
-				p_boo = True
-			p_add += 1
+	for n, i in enumerate(import_list):
 
-		# print import_list[p_end]
-		# print n
-		# print p_end
+		if "POLYLINE" in i:
 
-		for polyline_ind in range(n, p_end):
+			# find index of next 'seqend' to find end of polyline feature
+			p_end = 0
+			p_add = 1
+			p_boo = False
+			while p_boo == False:
+				if "SEQEND" in import_list[n + p_add]:
+					p_end = n + p_add
+					p_boo = True
+				p_add += 1
 
-			if "VERTEX" in import_list[polyline_ind]:
+			# print import_list[p_end]
+			# print n
+			# print p_end
 
-				# get index of next vertex or sequend to get indiv vertex feature
-				v_end = 0
-				v_add = 1
-				v_boo = False
-				while v_boo == False:
-					if "VERTEX" in import_list[polyline_ind + v_add] or "SEQEND" in import_list[polyline_ind + v_add]:
-						v_end = polyline_ind + v_add
-						v_boo = True
-					v_add += 1
+			for polyline_ind in range(n, p_end):
 
-				print "STARTTTTTTTTTTTTTT"
-				for v in range(polyline_ind, v_end):
-					
-					if "10" in import_list[v] and "20" in import_list[v + 2]:
-						print "10 " + import_list[v + 1]
-					if "20" in import_list[v] and "30" in import_list[v + 2]:
-						print "20 " + import_list[v + 1]
-					if "42" in import_list[v] and "0" in import_list[v + 2]:
-						print "42 " + import_list[v + 1]
-				print "ENDDDDDDDDDDDDDDDD"
+				if "VERTEX" in import_list[polyline_ind]:
+
+					# get index of next vertex or sequend to get indiv vertex feature
+					v_end = 0
+					v_add = 1
+					v_boo = False
+					while v_boo == False:
+						if "VERTEX" in import_list[polyline_ind + v_add] or "SEQEND" in import_list[polyline_ind + v_add]:
+							v_end = polyline_ind + v_add
+							v_boo = True
+						v_add += 1
+
+					for v in range(polyline_ind, v_end):
+						if "10" in import_list[v] and \
+							"20" in import_list[v + 2] and \
+							"30" in import_list[v + 4] and \
+							"42" in import_list[v + 6]:
+
+							x = float(import_list[v + 1])
+							y = float(import_list[v + 3])
+							bulge = float(import_list[v + 7])
+
+							print x
+							print y
+							print bulge
+						
+						# if "10" in import_list[v] and "20" in import_list[v + 2]:
+						# 	print "10 " + import_list[v + 1]
+						# if "20" in import_list[v] and "30" in import_list[v + 2]:
+						# 	print "20 " + import_list[v + 1]
+						# if "42" in import_list[v] and "0" in import_list[v + 2]:
+						#	print "42 " + import_list[v + 1]
+
+if __name__ == '__main__':
+	import_scan()
