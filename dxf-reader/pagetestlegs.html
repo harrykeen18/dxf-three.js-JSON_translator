@@ -33,6 +33,15 @@
 		camera.position.z = 5000;
 
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
+		// How far you can orbit vertically, upper and lower limits.
+		// Range is 0 to Math.PI radians.
+		controls.minPolarAngle = - Infinity; // radians
+		controls.maxPolarAngle = Infinity; // radians
+
+		// How far you can orbit horizontally, upper and lower limits.
+		// If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+		controls.minAzimuthAngle = - Infinity; // radians
+		controls.maxAzimuthAngle = Infinity; // radians
 
 		scene = new THREE.Scene();
 
