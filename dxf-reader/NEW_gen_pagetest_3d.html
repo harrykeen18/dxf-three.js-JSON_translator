@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang=en >
+<head>
+<meta charset=utf-8 >
+<title>3D dxf import param test</title>
+<meta name=viewport content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui' >
+</head>
+<body>
+<script src=http://rawgit.com/mrdoob/three.js/dev/build/three.min.js ></script>
+<script src=http://rawgit.com/mrdoob/three.js/dev/examples/js/controls/OrbitControls.js ></script>
+<script>
+
+// Anything on same line after two slashes is a comment and has no effect on the code
+
+	//var line;
+	var all_shapes;
+	var front, back, bottom;
+
+	var css, menu, stats, renderer, scene, camera, controls;
+	var geometry, material;
+
+	init();
+	animate();
+
+	function init() {
+
+// three.js
+		css = document.head.appendChild( document.createElement( 'style' ) );
+		css.innerHTML =
+
+// start style sheet with back quote
+`
+		body { font: 12pt monospace; margin: 0; overflow: hidden; }
+		#aa { text-decoration: none }
+
+`;
+
+// finish style sheet with quote and semi-colon
+
+		menu = document.body.appendChild( document.createElement( 'div' ) );
+		menu.style.cssText = 'margin: 0 20px; position: absolute; ';
+		menu.innerHTML = 
+
+// start menu text with back quote
+
+`
+			<H1> This was generated from dxf code<H1>
+
+			<p><input type=range id=inpLength min=-2000 max=2000 step=0.1 value=500 oninput=drawShapes(); > 
+				Length</p>
+
+`;
+
+// finish menu text with back quote and semi-colon
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+
+	    camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 100000, 100000 );
+		camera.position.x = 20000;
+		camera.position.y = 20000;
+		camera.position.z = 20000;
+
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+		// How far you can orbit vertically, upper and lower limits.
+		// Range is 0 to Math.PI radians.
+		controls.minPolarAngle = - Infinity; // radians
+		controls.maxPolarAngle = Infinity; // radians
+
+		// How far you can orbit horizontally, upper and lower limits.
+		// If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+		controls.minAzimuthAngle = - Infinity; // radians
+		controls.maxAzimuthAngle = Infinity; // radians
+
+		scene = new THREE.Scene();
+
+// helpers
+
+		var axisHelper = new THREE.AxisHelper( 50 );
+		scene.add( axisHelper );
+
+// assets
+		drawShapes();
+
+	}
+
+	function drawShapes() {
+
+		scene.remove( all_shapes );
+		all_shapes = new THREE.Object3D();
+
+		/*var width = inpWidth.valueAsNumber;*/
+		var length = inpLength.valueAsNumber; 
+		//var v2 = function( x, y ){ return new THREE.Vector2( x, y ); };
+		//var v3 = function( x, y, z ){ return new THREE.Vector3( x, y, z ); };
+		var material = new THREE.LineBasicMaterial( { color: 0x02B700, linewidth: 2 } );
+
+//INSERTHERE
+			
+		
+// asset 1
+		geometry = new THREE.Geometry();
+		geometry.vertices.push(
+			new THREE.Vector3( 49.462296154, 75.3428142209, -1144.50000002 - length/2),
+			new THREE.Vector3( 62.3316433395, 62.4734736858, -1144.50000002 - length/2),
+			new THREE.Vector3( 56.6747905516, 56.8166179747, -1144.50000002 - length/2),
+			new THREE.Vector3( 12.8695332421, 13.0113408352, -1144.50000002 - length/2),
+			new THREE.Vector3( 69.4027350279, -43.5218317368, -1144.50000002 - length/2),
+			new THREE.Vector3( 75.059590739, -49.1786845247, -1144.50000002 - length/2),
+			new THREE.Vector3( 62.1902502039, -62.0480317101, -1144.50000002 - length/2),
+			new THREE.Vector3( 56.5333944928, -56.3911789222, -1144.50000002 - length/2),
+			new THREE.Vector3( 0.000188391587813, 0.141997965142, -1144.50000002 - length/2),
+			new THREE.Vector3( -56.532980075, -56.3912024642, -1144.50000002 - length/2),
+			new THREE.Vector3( -62.1898328629, -62.0480581753, -1144.50000002 - length/2),
+			new THREE.Vector3( -75.0591800483, -49.1787176402, -1144.50000002 - length/2),
+			new THREE.Vector3( -69.4023272604, -43.5218619291, -1144.50000002 - length/2),
+			new THREE.Vector3( -12.8691560333, 13.0113406667, -1144.50000002 - length/2),
+			new THREE.Vector3( -56.6744269922, 56.8165911899, -1144.50000002 - length/2),
+			new THREE.Vector3( -62.3312827033, 62.4734439778, -1144.50000002 - length/2),
+			new THREE.Vector3( -49.4619421682, 75.3427911632, -1144.50000002 - length/2),
+			new THREE.Vector3( -43.8050864571, 69.6859383753, -1144.50000002 - length/2),
+			new THREE.Vector3( 0.000188520122492, 25.8806832281, -1144.50000002 - length/2),
+			new THREE.Vector3( 43.8054433662, 69.6859585098, -1144.50000002 - length/2),
+			new THREE.Vector3( 49.4622961962, 75.3428141787, -1144.50000002 - length/2)
+		);
+		var line = new THREE.Line( geometry, material );
+		all_shapes.add( line )
+// asset 2
+		geometry = new THREE.Geometry();
+		geometry.vertices.push(
+			new THREE.Vector3( -552.25897253, 72.6520635571, -1144.50000002 - length/2),
+			new THREE.Vector3( -253.2445319, -16.8083538728, -1144.50000002 - length/2),
+			new THREE.Vector3( -253.25207192, -16.8067312612, -1144.50000002 - length/2),
+			new THREE.Vector3( -221.736658515, -135.079559696, -1144.50000002 - length/2),
+			new THREE.Vector3( -578.470512654, -568.723098128, -1144.50000002 - length/2),
+			new THREE.Vector3( -579.836910098, -572.534886799, -1144.50000002 - length/2),
+			new THREE.Vector3( -579.836910202, -593.78647306, -1144.50000002 - length/2),
+			new THREE.Vector3( -575.336910404, -598.286472943, -1144.50000002 - length/2),
+			new THREE.Vector3( -512.103935778, -598.286472943, -1144.50000002 - length/2),
+			new THREE.Vector3( -507.810467799, -596.477670371, -1144.50000002 - length/2),
+			new THREE.Vector3( -70.709450871, -148.710942081, -1144.50000002 - length/2),
+			new THREE.Vector3( -70.711567128, -148.71098376, -1144.50000002 - length/2),
+			new THREE.Vector3( 70.7097901506, -148.710940556, -1144.50000002 - length/2),
+			new THREE.Vector3( 507.810813894, -596.47766319, -1144.50000002 - length/2),
+			new THREE.Vector3( 512.104281239, -598.286465145, -1144.50000002 - length/2),
+			new THREE.Vector3( 575.337255865, -598.286465145, -1144.50000002 - length/2),
+			new THREE.Vector3( 579.837255747, -593.786465347, -1144.50000002 - length/2),
+			new THREE.Vector3( 579.837255917, -572.534878087, -1144.50000002 - length/2),
+			new THREE.Vector3( 578.470858629, -568.723090609, -1144.50000002 - length/2),
+			new THREE.Vector3( 221.733928607, -135.082081722, -1144.50000002 - length/2),
+			new THREE.Vector3( 253.248502393, -16.8090291861, -1144.50000002 - length/2),
+			new THREE.Vector3( 552.256776229, 72.6515364475, -1144.50000002 - length/2),
+			new THREE.Vector3( 554.396973688, 75.5258198368, -1144.50000002 - length/2),
+			new THREE.Vector3( 554.396667208, 121.713981672, -1144.50000002 - length/2),
+			new THREE.Vector3( 64.4012643976, 121.713763276, -1144.50000002 - length/2),
+			new THREE.Vector3( 61.2193349506, 120.395793169, -1144.50000002 - length/2),
+			new THREE.Vector3( 56.1657393536, 115.342352235, -1144.50000002 - length/2),
+			new THREE.Vector3( 52.9838098412, 114.024381131, -1144.50000002 - length/2),
+			new THREE.Vector3( 52.9816923397, 114.024381622, -1144.50000002 - length/2),
+			new THREE.Vector3( -52.9855697331, 114.024334032, -1144.50000002 - length/2),
+			new THREE.Vector3( -56.167500709, 115.342302696, -1144.50000002 - length/2),
+			new THREE.Vector3( -61.2211004452, 120.395738337, -1144.50000002 - length/2),
+			new THREE.Vector3( -64.4030324843, 121.713706069, -1144.50000002 - length/2),
+			new THREE.Vector3( -554.399100701, 121.713488537, -1144.50000002 - length/2),
+			new THREE.Vector3( -554.399080344, 75.5261849863, -1144.50000002 - length/2),
+			new THREE.Vector3( -552.25897253, 72.6520635569, -1144.50000002 - length/2)
+		);
+		var line = new THREE.Line( geometry, material );
+		all_shapes.add( line )
+// asset 3
+		geometry = new THREE.Geometry();
+		geometry.vertices.push(
+			new THREE.Vector3( -37.6178965792, -37.4760870056, -1088.20001424 - length/2),
+			new THREE.Vector3( -37.6178874671, -37.4760778935, -1098.60001285 - length/2),
+			new THREE.Vector3( -31.9610332176, -31.819223644, -1098.60001096 - length/2),
+			new THREE.Vector3( -24.6071478219, -24.4653382483, -1098.60000659 - length/2),
+			new THREE.Vector3( -24.6071491576, -24.4653395841, -1090.60000659 - length/2),
+			new THREE.Vector3( -24.6071508941, -24.4653413206, -1080.20000659 - length/2),
+			new THREE.Vector3( -30.2640051436, -30.1221955701, -1080.20000848 - length/2),
+			new THREE.Vector3( -37.6178905393, -37.4760809657, -1080.20001424 - length/2),
+			new THREE.Vector3( -37.6178965793, -37.4760870057, -1088.20001424 - length/2)
+		);
+		var line = new THREE.Line( geometry, material );
+		all_shapes.add( line )
+// asset 4
+		geometry = new THREE.Geometry();
+		geometry.vertices.push(
+			new THREE.Vector3( 59.0432156067, 59.1850251803, 1199.60001969 + length/2),
+			new THREE.Vector3( 62.2251944963, 62.3670040698, 1195.10002412 + length/2),
+			new THREE.Vector3( 62.2252081042, 62.3670176777, 1113.60002076 + length/2),
+			new THREE.Vector3( 67.8820623537, 68.0238719272, 1113.60002264 + length/2),
+			new THREE.Vector3( 83.4384115398, 83.5802211133, 1113.60002784 + length/2),
+			new THREE.Vector3( 83.4387835458, 83.5805931194, -1114.39997216 - length/2),
+			new THREE.Vector3( 67.8824343597, 68.0242439333, -1114.39997736 - length/2),
+			new THREE.Vector3( 62.2255801102, 62.3673896838, -1114.39997924 - length/2),
+			new THREE.Vector3( 62.2255937182, 62.3674032917, -1195.89998261 - length/2),
+			new THREE.Vector3( 59.0436163314, 59.1854259049, -1200.39998031 - length/2),
+			new THREE.Vector3( 0.00019772513337, 0.142007298687, -1200.40000002 - length/2),
+			new THREE.Vector3( 0.000188391587807, 0.141997965142, -1144.50000002 - length/2),
+			new THREE.Vector3( 33.2695624464, 33.41137202, -1144.49998891 - length/2),
+			new THREE.Vector3( 38.9264166959, 39.0682262695, -1144.49998702 - length/2),
+			new THREE.Vector3( 38.9264146589, 39.0682242324, -1132.29998702 - length/2),
+			new THREE.Vector3( 33.2695604094, 33.411369983, -1132.29998891 - length/2),
+			new THREE.Vector3( 0.000186533052891, 0.141996106607, -1132.30000002 - length/2),
+			new THREE.Vector3( 0.000184879955833, 0.14199445351, -1122.3993416 - length/2),
+			new THREE.Vector3( -0.0705271337989, 0.071282439755, -1114.40000005 - length/2),
+			new THREE.Vector3( -75.6602420426, -75.5184324691, -1114.40002529 - length/2),
+			new THREE.Vector3( -81.3170962921, -81.1752867186, -1114.40002718 - length/2),
+			new THREE.Vector3( -81.3170932867, -81.1752837131, -1132.40002718 - length/2),
+			new THREE.Vector3( -116.672432346, -116.530622772, -1132.40003899 - length/2),
+			new THREE.Vector3( -116.672810363, -116.531000789, 1131.59996101 + length/2),
+			new THREE.Vector3( -81.3174713036, -81.1756617301, 1131.59997282 + length/2),
+			new THREE.Vector3( -81.3174682982, -81.1756587246, 1113.59997282 + length/2),
+			new THREE.Vector3( -75.6606140487, -75.5188044751, 1113.59997471 + length/2),
+			new THREE.Vector3( -0.070899139851, 0.0709104337029, 1113.59999995 + length/2),
+			new THREE.Vector3( -0.0707144057872, 0.0710951677668, 7.19999995265),
+			new THREE.Vector3( -0.0707130700387, 0.0710965035153, -0.800000047348),
+			new THREE.Vector3( 12.7986303476, 12.9404399211, -0.799995749796),
+			new THREE.Vector3( 12.7986290118, 12.9404385854, 7.2000042502),
+			new THREE.Vector3( 12.798441289, 12.9402508626, 1131.50000425 + length/2),
+			new THREE.Vector3( 33.2691826044, 33.4109921779, 1131.50001109 + length/2),
+			new THREE.Vector3( 38.9260368538, 39.0678464274, 1131.50001298 + length/2),
+			new THREE.Vector3( 38.9260348168, 39.0678443904, 1143.70001298 + length/2),
+			new THREE.Vector3( 33.2691805673, 33.4109901409, 1143.70001109 + length/2),
+			new THREE.Vector3( 12.7984390735, 12.9402486471, 1143.70000425 + length/2),
+			new THREE.Vector3( 12.79842974, 12.9402393135, 1199.60000425 + length/2)
+		);
+		var line = new THREE.Line( geometry, material );
+		all_shapes.add( line )
+// asset 5
+		geometry = new THREE.Geometry();
+		geometry.vertices.push(
+			new THREE.Vector3( 49.4619100905, 75.2006313796, 1143.69999998 + length/2),
+			new THREE.Vector3( 62.3312572759, 62.3312908444, 1143.69999998 + length/2),
+			new THREE.Vector3( 56.6744044881, 56.6744351333, 1143.69999998 + length/2),
+			new THREE.Vector3( 12.8691471785, 12.8691579939, 1143.69999998 + length/2),
+			new THREE.Vector3( 69.4023489644, -43.6640145781, 1143.69999998 + length/2),
+			new THREE.Vector3( 75.0592046755, -49.320867366, 1143.69999998 + length/2),
+			new THREE.Vector3( 62.1898641403, -62.1902145514, 1143.69999998 + length/2),
+			new THREE.Vector3( 56.5330084292, -56.5333617635, 1143.69999998 + length/2),
+			new THREE.Vector3( -0.00019767193362, -0.000184876184676, 1143.69999998 + length/2),
+			new THREE.Vector3( -56.5333661385, -56.5333853055, 1143.69999998 + length/2),
+			new THREE.Vector3( -62.1902189264, -62.1902410166, 1143.69999998 + length/2),
+			new THREE.Vector3( -75.0595661118, -49.3209004815, 1143.69999998 + length/2),
+			new THREE.Vector3( -69.402713324, -43.6640447704, 1143.69999998 + length/2),
+			new THREE.Vector3( -12.8695420968, 12.8691578253, 1143.69999998 + length/2),
+			new THREE.Vector3( -56.6748130557, 56.6744083486, 1143.69999998 + length/2),
+			new THREE.Vector3( -62.3316687668, 62.3312611365, 1143.69999998 + length/2),
+			new THREE.Vector3( -49.4623282317, 75.2006083219, 1143.69999998 + length/2),
+			new THREE.Vector3( -43.8054725206, 69.543755534, 1143.69999998 + length/2),
+			new THREE.Vector3( -0.00019754339894, 25.7385003867, 1143.69999998 + length/2),
+			new THREE.Vector3( 43.8050573026, 69.5437756685, 1143.69999998 + length/2),
+			new THREE.Vector3( 49.4619101327, 75.2006313374, 1143.69999998 + length/2)
+		);
+		var line = new THREE.Line( geometry, material );
+		all_shapes.add( line )
+// asset 6
+		geometry = new THREE.Geometry();
+		geometry.vertices.push(
+			new THREE.Vector3( -552.259358594, 72.5098807158, 1143.69999998 + length/2),
+			new THREE.Vector3( -253.244917964, -16.9505367141, 1143.69999998 + length/2),
+			new THREE.Vector3( -253.252457984, -16.9489141025, 1143.69999998 + length/2),
+			new THREE.Vector3( -221.737044579, -135.221742537, 1143.69999998 + length/2),
+			new THREE.Vector3( -578.470898718, -568.865280969, 1143.69999998 + length/2),
+			new THREE.Vector3( -579.837296161, -572.67706964, 1143.69999998 + length/2),
+			new THREE.Vector3( -579.837296266, -593.928655901, 1143.69999998 + length/2),
+			new THREE.Vector3( -575.337296467, -598.428655784, 1143.69999998 + length/2),
+			new THREE.Vector3( -512.104321842, -598.428655784, 1143.69999998 + length/2),
+			new THREE.Vector3( -507.810853863, -596.619853213, 1143.69999998 + length/2),
+			new THREE.Vector3( -70.7098369345, -148.853124922, 1143.69999998 + length/2),
+			new THREE.Vector3( -70.7119531916, -148.853166602, 1143.69999998 + length/2),
+			new THREE.Vector3( 70.7094040871, -148.853123397, 1143.69999998 + length/2),
+			new THREE.Vector3( 507.81042783, -596.619846032, 1143.69999998 + length/2),
+			new THREE.Vector3( 512.103895176, -598.428647986, 1143.69999998 + length/2),
+			new THREE.Vector3( 575.336869801, -598.428647986, 1143.69999998 + length/2),
+			new THREE.Vector3( 579.836869683, -593.928648188, 1143.69999998 + length/2),
+			new THREE.Vector3( 579.836869854, -572.677060929, 1143.69999998 + length/2),
+			new THREE.Vector3( 578.470472565, -568.86527345, 1143.69999998 + length/2),
+			new THREE.Vector3( 221.733542544, -135.224264564, 1143.69999998 + length/2),
+			new THREE.Vector3( 253.248116329, -16.9512120275, 1143.69999998 + length/2),
+			new THREE.Vector3( 552.256390165, 72.5093536062, 1143.69999998 + length/2),
+			new THREE.Vector3( 554.396587625, 75.3836369955, 1143.69999998 + length/2),
+			new THREE.Vector3( 554.396281144, 121.57179883, 1143.69999998 + length/2),
+			new THREE.Vector3( 64.4008783341, 121.571580434, 1143.69999998 + length/2),
+			new THREE.Vector3( 61.2189488871, 120.253610328, 1143.69999998 + length/2),
+			new THREE.Vector3( 56.16535329, 115.200169393, 1143.69999998 + length/2),
+			new THREE.Vector3( 52.9834237777, 113.88219829, 1143.69999998 + length/2),
+			new THREE.Vector3( 52.9813062761, 113.882198781, 1143.69999998 + length/2),
+			new THREE.Vector3( -52.9859557966, 113.88215119, 1143.69999998 + length/2),
+			new THREE.Vector3( -56.1678867725, 115.200119855, 1143.69999998 + length/2),
+			new THREE.Vector3( -61.2214865087, 120.253555496, 1143.69999998 + length/2),
+			new THREE.Vector3( -64.4034185479, 121.571523228, 1143.69999998 + length/2),
+			new THREE.Vector3( -554.399486765, 121.571305695, 1143.69999998 + length/2),
+			new THREE.Vector3( -554.399466408, 75.384002145, 1143.69999998 + length/2),
+			new THREE.Vector3( -552.259358594, 72.5098807156, 1143.69999998 + length/2)
+		);
+		var line = new THREE.Line( geometry, material );
+		all_shapes.add( line )
+// asset 7
+		geometry = new THREE.Geometry();
+		geometry.vertices.push(
+			new THREE.Vector3( 37.5471835092, -37.5471835092, 1087.40001419 + length/2),
+			new THREE.Vector3( 37.547174397, -37.547174397, 1097.8000128 + length/2),
+			new THREE.Vector3( 31.8903201476, -31.8903201476, 1097.80001091 + length/2),
+			new THREE.Vector3( 24.5364347519, -24.5364347519, 1097.80000654 + length/2),
+			new THREE.Vector3( 24.5364360876, -24.5364360876, 1089.80000654 + length/2),
+			new THREE.Vector3( 24.5364378241, -24.5364378241, 1079.40000654 + length/2),
+			new THREE.Vector3( 30.1932920736, -30.1932920736, 1079.40000843 + length/2),
+			new THREE.Vector3( 37.5471774693, -37.5471774693, 1079.40001419 + length/2),
+			new THREE.Vector3( 37.5471835092, -37.5471835092, 1087.40001419 + length/2)
+		);
+		var line = new THREE.Line( geometry, material );
+		all_shapes.add( line )
+// asset 8
+		geometry = new THREE.Geometry();
+		geometry.vertices.push(
+			new THREE.Vector3( -59.1139286768, 59.1139286768, -1200.40001974 - length/2),
+			new THREE.Vector3( -62.2959075663, 62.2959075663, -1195.90002416 - length/2),
+			new THREE.Vector3( -62.2959211742, 62.2959211742, -1114.4000208 - length/2),
+			new THREE.Vector3( -67.9527754237, 67.9527754237, -1114.40002269 - length/2),
+			new THREE.Vector3( -83.5091246098, 83.5091246098, -1114.40002789 - length/2),
+			new THREE.Vector3( -83.5094966159, 83.5094966159, 1113.59997211 + length/2),
+			new THREE.Vector3( -67.9531474298, 67.9531474298, 1113.59997731 + length/2),
+			new THREE.Vector3( -62.2962931803, 62.2962931803, 1113.5999792 + length/2),
+			new THREE.Vector3( -62.2963067882, 62.2963067882, 1195.09998256 + length/2),
+			new THREE.Vector3( -59.1143294014, 59.1143294014, 1199.59998026 + length/2),
+			new THREE.Vector3( -0.0709107951715, 0.0709107951713, 1199.59999998 + length/2),
+			new THREE.Vector3( -0.0709014616266, 0.0709014616265, 1143.69999998 + length/2),
+			new THREE.Vector3( -33.3402755165, 33.3402755165, 1143.69998887 + length/2),
+			new THREE.Vector3( -38.9971297659, 38.9971297659, 1143.69998698 + length/2),
+			new THREE.Vector3( -38.9971277289, 38.9971277289, 1131.49998698 + length/2),
+			new THREE.Vector3( -33.3402734794, 33.3402734794, 1131.49998887 + length/2),
+			new THREE.Vector3( -0.0708996030916, 0.0708996030914, 1131.49999998 + length/2),
+			new THREE.Vector3( -0.070897949994, 0.0708979499939, 1121.59934155 + length/2),
+			new THREE.Vector3( -0.000185936239881, 0.000185936239724, 1113.6 + length/2),
+			new THREE.Vector3( 75.5895289726, -75.5895289726, 1113.60002524 + length/2),
+			new THREE.Vector3( 81.2463832221, -81.2463832221, 1113.60002713 + length/2),
+			new THREE.Vector3( 81.2463802167, -81.2463802167, 1131.60002713 + length/2),
+			new THREE.Vector3( 116.601719276, -116.601719276, 1131.60003894 + length/2),
+			new THREE.Vector3( 116.602097293, -116.602097293, -1132.39996106 - length/2),
+			new THREE.Vector3( 81.2467582336, -81.2467582336, -1132.39997287 - length/2),
+			new THREE.Vector3( 81.2467552282, -81.2467552282, -1114.39997287 - length/2),
+			new THREE.Vector3( 75.5899009787, -75.5899009787, -1114.39997476 - length/2),
+			new THREE.Vector3( 0.000186069812252, -0.000186069812094, -1114.4 - length/2),
+			new THREE.Vector3( 1.3357487211e-06, -1.33574871997e-06, -8.0),
+			new THREE.Vector3( 1.13702770415e-13, -1.13702770415e-13, 0.0),
+			new THREE.Vector3( -12.8693434176, 12.8693434176, -4.2975516408e-06),
+			new THREE.Vector3( -12.8693420818, 12.8693420818, -8.00000429755),
+			new THREE.Vector3( -12.869154359, 12.869154359, -1132.3000043 - length/2),
+			new THREE.Vector3( -33.3398956744, 33.3398956744, -1132.30001113 - length/2),
+			new THREE.Vector3( -38.9967499239, 38.9967499239, -1132.30001302 - length/2),
+			new THREE.Vector3( -38.9967478869, 38.9967478869, -1144.50001302 - length/2),
+			new THREE.Vector3( -33.3398936374, 33.3398936374, -1144.50001113 - length/2),
+			new THREE.Vector3( -12.8691521435, 12.8691521435, -1144.5000043 - length/2),
+			new THREE.Vector3( -12.86914281, 12.86914281, -1200.4000043 - length/2)
+		);
+		var line = new THREE.Line( geometry, material );
+		all_shapes.add( line )
+
+//ENDHERE
+
+		scene.add( all_shapes );
+
+	}
+
+	function animate() {
+
+		requestAnimationFrame( animate );
+		controls.update();
+		renderer.render( scene, camera );
+
+	}
+
+</script>
+</body>
+</html>
