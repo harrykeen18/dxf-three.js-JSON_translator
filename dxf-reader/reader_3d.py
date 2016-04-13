@@ -9,14 +9,14 @@ def end_three():
 
 def write_three(x, y, z, b, Az):
 
-	if Az != 0:
+	if z != 0:
 		new_point = transpose(x, y, Az)
 
 		x = new_point[0]
 		y = new_point[1]
 		z = new_point[2]
 
-		a = 'new_point = ' + str(new_point)
+		# a = 'new_point = ' + str(new_point)
 		# print a
 
 	file = open("three_3d.txt",'a')
@@ -118,6 +118,7 @@ def import_scan():
 
 			# find if polyline is not on x,y plane and get the Arbritrary Z axis if it isn't
 			# Get index of next 'vertex' string to get snippet of code that defines the polyline
+			Az = 0			
 			for p in range(n, n + 20):
 						if "210" in import_list[p] and \
 							"220" in import_list[p + 2] and \
@@ -128,9 +129,6 @@ def import_scan():
 							z = float(import_list[p + 5])
 
 							Az = [x, y, z]
-							print 'Az = ' + str(Az)
-						else:
-							Az = 0
 
 			for polyline_ind in range(n, p_end):
 
