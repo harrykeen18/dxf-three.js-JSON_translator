@@ -1,6 +1,8 @@
 import math
 import numpy as np
 
+# DXF documentation
+
 # Here we are looking for the arbitrary X and Y axes to go with the normal N.
 # They will be called Ax and Ay. N could also be called Az (the arbitrary Z axis) as follows:
 
@@ -83,8 +85,6 @@ def run_test():
 	# print x
 	# print y
 	# print z
-
-
 
 if __name__ == '__main__':
 	run_test()
