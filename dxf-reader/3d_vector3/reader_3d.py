@@ -1,16 +1,20 @@
 import math
 import numpy as np
-
+import os
 
 def end_three():
-	file = open("three_3d.txt",'a')
-	file.write('\n		);\n		scene.add( line );\n\n')
 
+	with open("three_3d.txt", 'rb+') as filehandle:
+		filehandle.seek(-3, os.SEEK_END)
+		filehandle.truncate()
+
+	file = open("three_3d.txt",'a')
+	file.write('\n\n		);\n		var line = new THREE.Line( geometry, material );\n		all_shapes.add( line )\n\n')
 
 def write_three(x, y, z, b, Az):
 
-	if z != 0:
-		new_point = transpose(x, y, Az)
+	if Az != None:
+		new_point = transpose(x, y, z, Az)
 
 		x = new_point[0]
 		y = new_point[1]
@@ -20,14 +24,19 @@ def write_three(x, y, z, b, Az):
 		# print a
 
 	file = open("three_3d.txt",'a')
-	file.write('			new THREE.Vector3( '+ str(x) + ', ' + str(y) + ', ' + str(z) + '),\n')
 
+	# Apply length parameters here
+	if y < - 100:
+		file.write('			new THREE.Vector3( '+ str(x) + ', ' + str(y) + ', ' + str(z) + ' - length/2),\n')
+	elif y > 100:
+		file.write('			new THREE.Vector3( '+ str(x) + ', ' + str(y) + ', ' + str(z) + ' + length/2),\n')
+	else:
+		file.write('			new THREE.Vector3( '+ str(x) + ', ' + str(y) + ', ' + str(z) + '),\n')
 
 def start_three(asset_count):
 
 	file = open("three_3d.txt",'a')
-	file.write('// asset ' + str(asset_count) + '\n\n')
-	# file.write('		geometry.vertices.push(\n\n')
+	file.write('// asset ' + str(asset_count) + '\n		geometry = new THREE.Geometry();\n		geometry.vertices.push(\n\n')
 
 
 def cross(a, b):
@@ -38,7 +47,7 @@ def cross(a, b):
     return c
 
 
-def transpose(orig_x, orig_y, Az):
+def transpose(orig_x, orig_y, orig_z, Az):
 	xWCS = [1, 0, 0]
 	yWCS = [0, 1, 0]
 	zWCS = [0, 0, 1]
@@ -72,7 +81,7 @@ def transpose(orig_x, orig_y, Az):
 
 	# p2 = M2^T dot (O1 - O2 + M1 dot p1)
 
-	point2 = np.dot(INV_new_coord_sys, np.dot([xWCS, yWCS, zWCS], [orig_x, orig_y, 0]))
+	point2 = np.dot(INV_new_coord_sys, np.dot([xWCS, yWCS, zWCS], [orig_x, orig_y, orig_z]))
 	# print point2
 
 	return point2
@@ -86,7 +95,7 @@ def import_scan():
 
 	asset_count = 1
 
-	import_list = open("test3d.dxf").readlines()
+	import_list = open("test3d_comp.dxf").readlines()
 	# print len(import_list)
 	# remove all \n from strings
 	for n, i in enumerate(import_list):
@@ -118,7 +127,7 @@ def import_scan():
 
 			# find if polyline is not on x,y plane and get the Arbritrary Z axis if it isn't
 			# Get index of next 'vertex' string to get snippet of code that defines the polyline
-			Az = 0			
+			Az = None
 			for p in range(n, n + 20):
 						if "210" in import_list[p] and \
 							"220" in import_list[p + 2] and \
@@ -173,7 +182,7 @@ def import_scan():
 
 
 			# write first lines for a new part
-			# end_three()
+			end_three()
 
 if __name__ == '__main__':
 	import_scan()
