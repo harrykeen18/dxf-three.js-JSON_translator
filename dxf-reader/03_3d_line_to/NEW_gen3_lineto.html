@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang=en >
+<head>
+<meta charset=utf-8 >
+<title>3D dxf import param test</title>
+<meta name=viewport content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui' >
+</head>
+<body>
+<script src=http://rawgit.com/mrdoob/three.js/dev/build/three.min.js ></script>
+<script src=http://rawgit.com/mrdoob/three.js/dev/examples/js/controls/OrbitControls.js ></script>
+<script>
+
+// Anything on same line after two slashes is a comment and has no effect on the code
+
+	//var line;
+	var all_shapes;
+	var front, back, bottom;
+
+	var css, menu, stats, renderer, scene, camera, controls;
+	var geometry, material;
+
+	init();
+	animate();
+
+	function init() {
+
+// three.js
+		css = document.head.appendChild( document.createElement( 'style' ) );
+		css.innerHTML =
+
+// start style sheet with back quote
+`
+		body { font: 12pt monospace; margin: 0; overflow: hidden; }
+		#aa { text-decoration: none }
+
+`;
+
+// finish style sheet with quote and semi-colon
+
+		menu = document.body.appendChild( document.createElement( 'div' ) );
+		menu.style.cssText = 'margin: 0 20px; position: absolute; ';
+		menu.innerHTML = 
+
+// start menu text with back quote
+
+`
+			<H1> This was generated from dxf code<H1>
+
+			<p><input type=range id=inpLength min=-2000 max=2000 step=0.1 value=500 oninput=drawShapes(); > 
+				Length</p>
+
+`;
+
+// finish menu text with back quote and semi-colon
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+
+	    camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 100000, 100000 );
+		camera.position.x = 20000;
+		camera.position.y = 20000;
+		camera.position.z = 20000;
+
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+		// How far you can orbit vertically, upper and lower limits.
+		// Range is 0 to Math.PI radians.
+		controls.minPolarAngle = - Infinity; // radians
+		controls.maxPolarAngle = Infinity; // radians
+
+		// How far you can orbit horizontally, upper and lower limits.
+		// If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+		controls.minAzimuthAngle = - Infinity; // radians
+		controls.maxAzimuthAngle = Infinity; // radians
+
+		scene = new THREE.Scene();
+
+// helpers
+
+		var axisHelper = new THREE.AxisHelper( 50 );
+		scene.add( axisHelper );
+
+// assets
+		drawShapes();
+
+	}
+
+	function drawShapes() {
+
+		scene.remove( all_shapes );
+		all_shapes = new THREE.Object3D();
+
+		/*var width = inpWidth.valueAsNumber;*/
+		var length = inpLength.valueAsNumber; 
+		//var v2 = function( x, y ){ return new THREE.Vector2( x, y ); };
+		//var v3 = function( x, y, z ){ return new THREE.Vector3( x, y, z ); };
+		var material = new THREE.LineBasicMaterial( { color:  0xffffff, linewidth: 2 } );
+
+//INSERTHERE
+			
+		
+// asset 1
+		shape = new THREE.Shape();
+			shape.moveTo( 49.462296154, 75.3428142209);
+			shape.moveTo( 62.3316433395, 62.4734736858);
+			shape.moveTo( 56.6747905516, 56.8166179747);
+			shape.moveTo( 12.8695332421, 13.0113408352);
+			shape.moveTo( 69.4027350279, -43.5218317368);
+			shape.moveTo( 75.059590739, -49.1786845247);
+			shape.moveTo( 62.1902502039, -62.0480317101);
+			shape.moveTo( 56.5333944928, -56.3911789222);
+			shape.moveTo( 0.000188391587813, 0.141997965142);
+			shape.moveTo( -56.532980075, -56.3912024642);
+			shape.moveTo( -62.1898328629, -62.0480581753);
+			shape.moveTo( -75.0591800483, -49.1787176402);
+			shape.moveTo( -69.4023272604, -43.5218619291);
+			shape.moveTo( -12.8691560333, 13.0113406667);
+			shape.moveTo( -56.6744269922, 56.8165911899);
+			shape.moveTo( -62.3312827033, 62.4734439778);
+			shape.moveTo( -49.4619421682, 75.3427911632);
+			shape.moveTo( -43.8050864571, 69.6859383753);
+			shape.moveTo( 0.000188520122492, 25.8806832281);
+			shape.moveTo( 43.8054433662, 69.6859585098);
+			shape.moveTo( 49.4622961962, 75.3428141787);
+		geometry = new THREE.ShapeGeometry( shape );
+		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );
+		mesh = new THREE.Mesh( geometry, material );
+		edges = new THREE.EdgesHelper( mesh, 0x000000 );
+		scene.add( mesh );
+		scene.add( edges );
+// asset 2
+		shape = new THREE.Shape();
+			shape.moveTo( -552.25897253, 72.6520635571);
+			shape.moveTo( -253.2445319, -16.8083538728);
+			shape.moveTo( -253.25207192, -16.8067312612);
+			shape.moveTo( -221.736658515, -135.079559696);
+			shape.moveTo( -578.470512654, -568.723098128);
+			shape.moveTo( -579.836910098, -572.534886799);
+			shape.moveTo( -579.836910202, -593.78647306);
+			shape.moveTo( -575.336910404, -598.286472943);
+			shape.moveTo( -512.103935778, -598.286472943);
+			shape.moveTo( -507.810467799, -596.477670371);
+			shape.moveTo( -70.709450871, -148.710942081);
+			shape.moveTo( -70.711567128, -148.71098376);
+			shape.moveTo( 70.7097901506, -148.710940556);
+			shape.moveTo( 507.810813894, -596.47766319);
+			shape.moveTo( 512.104281239, -598.286465145);
+			shape.moveTo( 575.337255865, -598.286465145);
+			shape.moveTo( 579.837255747, -593.786465347);
+			shape.moveTo( 579.837255917, -572.534878087);
+			shape.moveTo( 578.470858629, -568.723090609);
+			shape.moveTo( 221.733928607, -135.082081722);
+			shape.moveTo( 253.248502393, -16.8090291861);
+			shape.moveTo( 552.256776229, 72.6515364475);
+			shape.moveTo( 554.396973688, 75.5258198368);
+			shape.moveTo( 554.396667208, 121.713981672);
+			shape.moveTo( 64.4012643976, 121.713763276);
+			shape.moveTo( 61.2193349506, 120.395793169);
+			shape.moveTo( 56.1657393536, 115.342352235);
+			shape.moveTo( 52.9838098412, 114.024381131);
+			shape.moveTo( 52.9816923397, 114.024381622);
+			shape.moveTo( -52.9855697331, 114.024334032);
+			shape.moveTo( -56.167500709, 115.342302696);
+			shape.moveTo( -61.2211004452, 120.395738337);
+			shape.moveTo( -64.4030324843, 121.713706069);
+			shape.moveTo( -554.399100701, 121.713488537);
+			shape.moveTo( -554.399080344, 75.5261849863);
+			shape.moveTo( -552.25897253, 72.6520635569);
+		geometry = new THREE.ShapeGeometry( shape );
+		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );
+		mesh = new THREE.Mesh( geometry, material );
+		edges = new THREE.EdgesHelper( mesh, 0x000000 );
+		scene.add( mesh );
+		scene.add( edges );
+// asset 3
+		shape = new THREE.Shape();
+			shape.moveTo( -53.0994650192, -1088.20001424);
+			shape.moveTo( -53.0994521327, -1098.60001285);
+			shape.moveTo( -45.0994521327, -1098.60001096);
+			shape.moveTo( -34.6994876699, -1098.60000659);
+			shape.moveTo( -34.699489559, -1090.60000659);
+			shape.moveTo( -34.6994920147, -1080.20000659);
+			shape.moveTo( -42.6994920147, -1080.20000848);
+			shape.moveTo( -53.0994564774, -1080.20001424);
+			shape.moveTo( -53.0994650193, -1088.20001424);
+		geometry = new THREE.ShapeGeometry( shape );
+		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );
+		mesh = new THREE.Mesh( geometry, material );
+		edges = new THREE.EdgesHelper( mesh, 0x000000 );
+		scene.add( mesh );
+		scene.add( edges );
+// asset 4
+		shape = new THREE.Shape();
+			shape.moveTo( 83.5999907883, 1199.60001969);
+			shape.moveTo( 88.099988489, 1195.10002412);
+			shape.moveTo( 88.1000077335, 1113.60002076);
+			shape.moveTo( 96.1000077335, 1113.60002264);
+			shape.moveTo( 118.100007734, 1113.60002784);
+			shape.moveTo( 118.10053383, -1114.39997216);
+			shape.moveTo( 96.1005338295, -1114.39997736);
+			shape.moveTo( 88.1005338295, -1114.39997924);
+			shape.moveTo( 88.1005530741, -1195.89998261);
+			shape.moveTo( 83.6005574985, -1200.39998031);
+			shape.moveTo( 0.100554136662, -1200.40000002);
+			shape.moveTo( 0.100540937036, -1144.50000002);
+			shape.moveTo( 47.150540937, -1144.49998891);
+			shape.moveTo( 55.150540937, -1144.49998702);
+			shape.moveTo( 55.1505380563, -1132.29998702);
+			shape.moveTo( 47.1505380563, -1132.29998891);
+			shape.moveTo( 0.10053830867, -1132.30000002);
+			shape.moveTo( 0.100535970838, -1122.3993416);
+			shape.moveTo( 0.000534081963422, -1114.40000005);
+			shape.moveTo( -106.899465918, -1114.40002529);
+			shape.moveTo( -114.899465918, -1114.40002718);
+			shape.moveTo( -114.899461668, -1132.40002718);
+			shape.moveTo( -164.899461668, -1132.40003899);
+			shape.moveTo( -164.899996264, 1131.59996101);
+			shape.moveTo( -114.899996264, 1131.59997282);
+			shape.moveTo( -114.899992014, 1113.59997282);
+			shape.moveTo( -106.899992014, 1113.59997471);
+			shape.moveTo( 7.9859592729e-06, 1113.59999995);
+			shape.moveTo( 0.000269239377803, 7.19999995265);
+			shape.moveTo( 0.000271128411438, -0.800000047348);
+			shape.moveTo( 18.2002711284, -0.799995749796);
+			shape.moveTo( 18.2002692394, 7.2000042502);
+			shape.moveTo( 18.2000037592, 1131.50000425);
+			shape.moveTo( 47.1500037592, 1131.50001109);
+			shape.moveTo( 55.1500037592, 1131.50001298);
+			shape.moveTo( 55.1500008785, 1143.70001298);
+			shape.moveTo( 47.1500008785, 1143.70001109);
+			shape.moveTo( 18.200000626, 1143.70000425);
+			shape.moveTo( 18.1999874264, 1199.60000425);
+		geometry = new THREE.ShapeGeometry( shape );
+		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );
+		mesh = new THREE.Mesh( geometry, material );
+		edges = new THREE.EdgesHelper( mesh, 0x000000 );
+		scene.add( mesh );
+		scene.add( edges );
+// asset 5
+		shape = new THREE.Shape();
+			shape.moveTo( 49.4619100905, 75.2006313796);
+			shape.moveTo( 62.3312572759, 62.3312908444);
+			shape.moveTo( 56.6744044881, 56.6744351333);
+			shape.moveTo( 12.8691471785, 12.8691579939);
+			shape.moveTo( 69.4023489644, -43.6640145781);
+			shape.moveTo( 75.0592046755, -49.320867366);
+			shape.moveTo( 62.1898641403, -62.1902145514);
+			shape.moveTo( 56.5330084292, -56.5333617635);
+			shape.moveTo( -0.00019767193362, -0.000184876184676);
+			shape.moveTo( -56.5333661385, -56.5333853055);
+			shape.moveTo( -62.1902189264, -62.1902410166);
+			shape.moveTo( -75.0595661118, -49.3209004815);
+			shape.moveTo( -69.402713324, -43.6640447704);
+			shape.moveTo( -12.8695420968, 12.8691578253);
+			shape.moveTo( -56.6748130557, 56.6744083486);
+			shape.moveTo( -62.3316687668, 62.3312611365);
+			shape.moveTo( -49.4623282317, 75.2006083219);
+			shape.moveTo( -43.8054725206, 69.543755534);
+			shape.moveTo( -0.00019754339894, 25.7385003867);
+			shape.moveTo( 43.8050573026, 69.5437756685);
+			shape.moveTo( 49.4619101327, 75.2006313374);
+		geometry = new THREE.ShapeGeometry( shape );
+		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );
+		mesh = new THREE.Mesh( geometry, material );
+		edges = new THREE.EdgesHelper( mesh, 0x000000 );
+		scene.add( mesh );
+		scene.add( edges );
+// asset 6
+		shape = new THREE.Shape();
+			shape.moveTo( -552.259358594, 72.5098807158);
+			shape.moveTo( -253.244917964, -16.9505367141);
+			shape.moveTo( -253.252457984, -16.9489141025);
+			shape.moveTo( -221.737044579, -135.221742537);
+			shape.moveTo( -578.470898718, -568.865280969);
+			shape.moveTo( -579.837296161, -572.67706964);
+			shape.moveTo( -579.837296266, -593.928655901);
+			shape.moveTo( -575.337296467, -598.428655784);
+			shape.moveTo( -512.104321842, -598.428655784);
+			shape.moveTo( -507.810853863, -596.619853213);
+			shape.moveTo( -70.7098369345, -148.853124922);
+			shape.moveTo( -70.7119531916, -148.853166602);
+			shape.moveTo( 70.7094040871, -148.853123397);
+			shape.moveTo( 507.81042783, -596.619846032);
+			shape.moveTo( 512.103895176, -598.428647986);
+			shape.moveTo( 575.336869801, -598.428647986);
+			shape.moveTo( 579.836869683, -593.928648188);
+			shape.moveTo( 579.836869854, -572.677060929);
+			shape.moveTo( 578.470472565, -568.86527345);
+			shape.moveTo( 221.733542544, -135.224264564);
+			shape.moveTo( 253.248116329, -16.9512120275);
+			shape.moveTo( 552.256390165, 72.5093536062);
+			shape.moveTo( 554.396587625, 75.3836369955);
+			shape.moveTo( 554.396281144, 121.57179883);
+			shape.moveTo( 64.4008783341, 121.571580434);
+			shape.moveTo( 61.2189488871, 120.253610328);
+			shape.moveTo( 56.16535329, 115.200169393);
+			shape.moveTo( 52.9834237777, 113.88219829);
+			shape.moveTo( 52.9813062761, 113.882198781);
+			shape.moveTo( -52.9859557966, 113.88215119);
+			shape.moveTo( -56.1678867725, 115.200119855);
+			shape.moveTo( -61.2214865087, 120.253555496);
+			shape.moveTo( -64.4034185479, 121.571523228);
+			shape.moveTo( -554.399486765, 121.571305695);
+			shape.moveTo( -554.399466408, 75.384002145);
+			shape.moveTo( -552.259358594, 72.5098807156);
+		geometry = new THREE.ShapeGeometry( shape );
+		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );
+		mesh = new THREE.Mesh( geometry, material );
+		edges = new THREE.EdgesHelper( mesh, 0x000000 );
+		scene.add( mesh );
+		scene.add( edges );
+// asset 7
+		shape = new THREE.Shape();
+			shape.moveTo( 53.0997361476, 1087.40001419);
+			shape.moveTo( 53.0997232611, 1097.8000128);
+			shape.moveTo( 45.0997232611, 1097.80001091);
+			shape.moveTo( 34.6997587984, 1097.80000654);
+			shape.moveTo( 34.6997606874, 1089.80000654);
+			shape.moveTo( 34.6997631431, 1079.40000654);
+			shape.moveTo( 42.6997631431, 1079.40000843);
+			shape.moveTo( 53.0997276058, 1079.40001419);
+			shape.moveTo( 53.0997361477, 1087.40001419);
+		geometry = new THREE.ShapeGeometry( shape );
+		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );
+		mesh = new THREE.Mesh( geometry, material );
+		edges = new THREE.EdgesHelper( mesh, 0x000000 );
+		scene.add( mesh );
+		scene.add( edges );
+// asset 8
+		shape = new THREE.Shape();
+			shape.moveTo( -83.5997196598, -1200.40001974);
+			shape.moveTo( -88.0997173606, -1195.90002416);
+			shape.moveTo( -88.0997366051, -1114.4000208);
+			shape.moveTo( -96.0997366051, -1114.40002269);
+			shape.moveTo( -118.099736605, -1114.40002789);
+			shape.moveTo( -118.100262701, 1113.59997211);
+			shape.moveTo( -96.1002627011, 1113.59997731);
+			shape.moveTo( -88.1002627011, 1113.5999792);
+			shape.moveTo( -88.1002819457, 1195.09998256);
+			shape.moveTo( -83.6002863701, 1199.59998026);
+			shape.moveTo( -0.10028300825, 1199.59999998);
+			shape.moveTo( -0.100269808624, 1143.69999998);
+			shape.moveTo( -47.1502698086, 1143.69998887);
+			shape.moveTo( -55.1502698086, 1143.69998698);
+			shape.moveTo( -55.1502669278, 1131.49998698);
+			shape.moveTo( -47.1502669278, 1131.49998887);
+			shape.moveTo( -0.100267180259, 1131.49999998);
+			shape.moveTo( -0.100264842426, 1121.59934155);
+			shape.moveTo( -0.000262953552065, 1113.6);
+			shape.moveTo( 106.899737046, 1113.60002524);
+			shape.moveTo( 114.899737046, 1113.60002713);
+			shape.moveTo( 114.899732796, 1131.60002713);
+			shape.moveTo( 164.899732796, 1131.60003894);
+			shape.moveTo( 164.900267393, -1132.39996106);
+			shape.moveTo( 114.900267393, -1132.39997287);
+			shape.moveTo( 114.900263142, -1114.39997287);
+			shape.moveTo( 106.900263142, -1114.39997476);
+			shape.moveTo( 0.000263142451923, -1114.4);
+			shape.moveTo( 1.8890339565e-06, -8.0);
+			shape.moveTo( 1.608e-13, 0.0);
+			shape.moveTo( -18.2, -4.2975516408e-06);
+			shape.moveTo( -18.199998111, -8.00000429755);
+			shape.moveTo( -18.1997326308, -1132.3000043);
+			shape.moveTo( -47.1497326308, -1132.30001113);
+			shape.moveTo( -55.1497326308, -1132.30001302);
+			shape.moveTo( -55.1497297501, -1144.50001302);
+			shape.moveTo( -47.1497297501, -1144.50001113);
+			shape.moveTo( -18.1997294976, -1144.5000043);
+			shape.moveTo( -18.199716298, -1200.4000043);
+		geometry = new THREE.ShapeGeometry( shape );
+		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );
+		mesh = new THREE.Mesh( geometry, material );
+		edges = new THREE.EdgesHelper( mesh, 0x000000 );
+		scene.add( mesh );
+		scene.add( edges );
+
+//ENDHERE
+
+		scene.add( all_shapes );
+
+	}
+
+	function animate() {
+
+		requestAnimationFrame( animate );
+		controls.update();
+		renderer.render( scene, camera );
+
+	}
+
+</script>
+</body>
+</html>
