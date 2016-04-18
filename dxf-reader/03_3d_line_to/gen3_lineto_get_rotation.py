@@ -109,18 +109,14 @@ def end_three(z, Az):
 		# HTMLLIST.append('		mesh.rotation.set( ' + str(y_rot) + ', ' + str(y_rot) + ', '+ str(x_rot) + ' )')
 		# HTMLLIST.append('		mesh.rotation.set( ' + str(x_rot) + ', ' + str(y_rot) + ', 0 )')
 
-	# HTMLLIST.append('		edges = new THREE.EdgesHelper( mesh, 0x000000 );')
-	HTMLLIST.append('		all_shapes.add( mesh );')
-	# HTMLLIST.append('		scene.add( edges );')
+	HTMLLIST.append('		edges = new THREE.EdgesHelper( mesh, 0x000000 );')
+	HTMLLIST.append('		scene.add( mesh );')
+	HTMLLIST.append('		scene.add( edges );')
 
 def write_three(x, y, z, bulge):
 
-	if y < - 300:
-		# Adds bulk of co-ord code to HTMLLIST
-		HTMLLIST.append('			shape.moveTo( ' + str(x) + ', ' + str(y) + ' - length/2);')
-	else:
-		HTMLLIST.append('			shape.moveTo( ' + str(x) + ', ' + str(y) + ' + length/2);')
-
+	# Adds bulk of co-ord code to HTMLLIST
+	HTMLLIST.append('			shape.moveTo( ' + str(x) + ', ' + str(y) + ');')
 
 
 	# Apply length parameters here
@@ -137,6 +133,76 @@ def start_three(asset_count):
 	HTMLLIST.append('// asset ' + str(asset_count))
 	HTMLLIST.append('		shape = new THREE.Shape();')
 
+def rigid_transform_3D(A, B):
+
+	assert len(A) == len(B)
+
+	N = A.shape[0]; # total points
+
+	centroid_A = mean(A, axis=0)
+	centroid_B = mean(B, axis=0)
+
+	# centre the points
+	AA = A - tile(centroid_A, (N, 1))
+	BB = B - tile(centroid_B, (N, 1))
+
+	# dot is matrix multiplication for array
+	H = transpose(AA) * BB
+
+	U, S, Vt = linalg.svd(H)
+
+	R = Vt.T * U.T
+
+	# special reflection case
+	if linalg.det(R) < 0:
+	   print "Reflection detected"
+	   Vt[2,:] *= -1
+	   R = Vt.T * U.T
+
+	t = -R*centroid_A.T + centroid_B.T
+
+	print t
+
+	return R, t
+
+def transpose(orig_x, orig_y, orig_z, Az):
+	xWCS = [1, 0, 0]
+	yWCS = [0, 1, 0]
+	zWCS = [0, 0, 1]
+	N = Az # [0.7071067811865472, -0.7071067811865479, 0.0]
+
+	if math.sqrt(math.pow(N[0], 2)) < 1/64 and math.sqrt(math.pow(N[1], 2)) < 1/64:
+		Ax = cross(yWCS, N)
+	else:
+		Ax = cross(zWCS, N)
+
+	Ay = cross(N, Ax)
+
+	# print Ax
+	# print Ay
+
+	# build new co-ord system matrix
+	new_coord_sys = [Ax, Ay, N]
+	# new_coord_sys = [[0, 0, 1], [0, 1, 0], [2, 0, 0]]
+	
+	# find inverse co-ord system by transposing matrix
+	INV_new_coord_sys = np.linalg.inv(new_coord_sys)
+	# print INV_new_coord_sys
+
+	# Translate points with this formula where
+	# p2 = new point
+	# M2^T = transpose of new co-ord system (3 x 3 matrix of 3 axes)
+	# O1 = origin original ((0,0,0) in this case
+	# O2 = origin new ((0,0,0) in this case
+	# M1 = original co-ord system (3 x 3 matrix of 3 axes)
+	# p1 = original point
+
+	# p2 = M2^T dot (O1 - O2 + M1 dot p1)
+
+	point2 = np.dot(INV_new_coord_sys, np.dot([xWCS, yWCS, zWCS], [orig_x, orig_y, orig_z]))
+	# print point2
+
+	return point2
 
 def import_scan():
 
@@ -190,6 +256,8 @@ def import_scan():
 							Az = [x, y, z]
 			print 'Az = ' + str(Az)
 
+			point_matrix = []
+			actual_points = []
 
 			for polyline_ind in range(n, p_end):
 
@@ -220,6 +288,13 @@ def import_scan():
 							#bulge = float(import_list[v + 7])
 							bulge = 0.0
 
+							point_matrix = np.row_stack(np.array((x,y,z)))
+							print point_matrix
+
+							if Az != None:
+								actual_point = transpose(x, y, z, Az)
+								actual_points = np.row_stack(actual_point)
+
 							# print x
 							# print y
 							# print z
@@ -234,6 +309,9 @@ def import_scan():
 						# if "42" in import_list[v] and "0" in import_list[v + 2]:
 						#	print "42 " + import_list[v + 1]
 
+
+				if Az != None:
+					rigid_transform_3D(point_matrix, actual_points)
 
 
 			# write first lines for a new part
