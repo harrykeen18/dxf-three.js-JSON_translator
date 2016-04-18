@@ -33,10 +33,10 @@ def find_arb_axes(Az):
 	zWCS = [0, 0, 1]
 	N = Az # [0.7071067811865472, -0.7071067811865479, 0.0]
 
-	if math.sqrt(math.pow(N[0], 2)) < 1/64 and math.sqrt(math.pow(N[1], 2)) < 1/64:
-		Ax = cross(yWCS, N)
-	else:
-		Ax = cross(zWCS, N)
+	# if math.sqrt(math.pow(N[0], 2)) < 1/64 and math.sqrt(math.pow(N[1], 2)) < 1/64:
+	Ax = cross(yWCS, N)
+	# else:
+	# 	Ax = cross(zWCS, N)
 
 	Ay = cross(N, Ax)
 
@@ -74,7 +74,7 @@ def end_three(z, Az):
 
 	# Adds ending code to HTMLLIST
 	HTMLLIST.append('		geometry = new THREE.ShapeGeometry( shape );')
-	HTMLLIST.append('		geometry = shape.extrude( { amount: 18, bevelEnabled: false } );')
+	HTMLLIST.append('		geometry = shape.extrude( { amount: -18, bevelEnabled: false } );')
 	HTMLLIST.append('		mesh = new THREE.Mesh( geometry, material );')
 	# HTMLLIST.append('		mesh.position.z = ' + str(z) +';')
 
@@ -98,28 +98,45 @@ def end_three(z, Az):
 		y_rot = angle_vec(yWCS, AxAy[1])
 		z_rot = angle_vec(zWCS, Az)
 
+		if Az[0] < 0:
+			x_rot = - x_rot
+
+		if Az[1] > 0:
+			y_rot = - y_rot
+
+		# y_rot = angle_vec(yWCS, AxAy[1])
+		# z_rot = angle_vec(zWCS, Az)
+
 		print x_rot
 		print y_rot
 		print z_rot
 
-		HTMLLIST.append('		mesh.rotation.x = Math.PI / 2;')
-		HTMLLIST.append('		mesh.rotation.y = Math.PI / 4;')
+		HTMLLIST.append('		mesh.rotation.x = ' + str(x_rot))
+		HTMLLIST.append('		mesh.rotation.y = ' + str(y_rot))
 
 		# HTMLLIST.append('		mesh.rotation.set( -Math.PI / 2, -Math.PI / 2, -Math.PI / 4 )')
 		# HTMLLIST.append('		mesh.rotation.set( ' + str(y_rot) + ', ' + str(y_rot) + ', '+ str(x_rot) + ' )')
 		# HTMLLIST.append('		mesh.rotation.set( ' + str(x_rot) + ', ' + str(y_rot) + ', 0 )')
 
-	# HTMLLIST.append('		edges = new THREE.EdgesHelper( mesh, 0x000000 );')
+	if Az == None:
+		if z < 0:
+			HTMLLIST.append('		mesh.position.z = ' + str(z) + ' - length/2')
+		elif z > 0:
+			HTMLLIST.append('		mesh.position.z = ' + str(z) + ' + length/2')
+
+	HTMLLIST.append('		edges = new THREE.EdgesHelper( mesh, 0xffffff );')
 	HTMLLIST.append('		all_shapes.add( mesh );')
-	# HTMLLIST.append('		scene.add( edges );')
+	HTMLLIST.append('		all_edges.add( edges );')
 
-def write_three(x, y, z, bulge):
+def write_three(x, y, z, bulge, Az):
 
-	if y < - 300:
+	if y < - 1000 and Az != None:
 		# Adds bulk of co-ord code to HTMLLIST
 		HTMLLIST.append('			shape.moveTo( ' + str(x) + ', ' + str(y) + ' - length/2);')
-	else:
+	elif y > 1000 and Az != None:
 		HTMLLIST.append('			shape.moveTo( ' + str(x) + ', ' + str(y) + ' + length/2);')
+	else:
+		HTMLLIST.append('			shape.moveTo( ' + str(x) + ', ' + str(y) + ' );')
 
 
 
@@ -200,8 +217,6 @@ def import_scan():
 					v_add = 1
 					v_boo = False
 
-
-
 					while v_boo == False:
 						if "VERTEX" in import_list[polyline_ind + v_add] or "SEQEND" in import_list[polyline_ind + v_add]:
 							v_end = polyline_ind + v_add
@@ -225,7 +240,7 @@ def import_scan():
 							# print z
 							# print bulge
 
-							write_three(x, y, z, bulge)
+							write_three(x, y, z, bulge, Az)
 						
 						# if "10" in import_list[v] and "20" in import_list[v + 2]:
 						# 	print "10 " + import_list[v + 1]
@@ -233,8 +248,6 @@ def import_scan():
 						# 	print "20 " + import_list[v + 1]
 						# if "42" in import_list[v] and "0" in import_list[v + 2]:
 						#	print "42 " + import_list[v + 1]
-
-
 
 			# write first lines for a new part
 			end_three(z, Az)

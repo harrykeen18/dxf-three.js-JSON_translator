@@ -14,6 +14,7 @@
 
 	//var line;
 	var all_shapes;
+	var all_edges;
 	var front, back, bottom;
 
 	var css, menu, stats, renderer, scene, camera, controls;
@@ -88,7 +89,9 @@
 	function drawShapes() {
 
 		scene.remove( all_shapes );
+		scene.remove( all_edges );
 		all_shapes = new THREE.Object3D();
+		all_edges = new THREE.Object3D();
 
 		/*var width = inpWidth.valueAsNumber;*/
 		var length = inpLength.valueAsNumber; 
@@ -108,7 +111,7 @@
 //ENDHERE
 
 		scene.add( all_shapes );
-
+		scene.add( all_edges );
 	}
 
 	function animate() {
