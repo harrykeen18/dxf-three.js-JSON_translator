@@ -82,11 +82,11 @@
 		scene.add( axisHelper );
 
 // assets
-		drawShapes(length);
+		drawShapes();
 
 	}
 
-	function drawShapes(length) {
+	function drawShapes() {
 
 		scene.remove( all_shapes );
 		scene.remove( all_edges );
@@ -95,7 +95,7 @@
 
 		/*var width = inpWidth.valueAsNumber;*/
 		// var length = 500;
-		/*var length = inpLength.valueAsNumber; */
+		var length = inpLength.valueAsNumber;
 		console.log(length);
 		//var v2 = function( x, y ){ return new THREE.Vector2( x, y ); };
 		//var v3 = function( x, y, z ){ return new THREE.Vector3( x, y, z ); };
@@ -127,6 +127,7 @@
 			shape.moveTo( 0.000188520122492, 25.8806832281 );
 			shape.moveTo( 43.8054433662, 69.6859585098 );
 			shape.moveTo( 49.4622961962, 75.3428141787 );
+		console.log(length);
 		geometry = new THREE.ShapeGeometry( shape );
 		geometry = shape.extrude( { amount: -18, bevelEnabled: false } );
 		mesh = new THREE.Mesh( geometry, material );
