@@ -13,7 +13,6 @@
 // Anything on same line after two slashes is a comment and has no effect on the code
 
 	//var line;
-	var length = 0;
 	var all_shapes;
 	var all_edges;
 	var front, back, bottom;
@@ -96,6 +95,7 @@
 
 		/*var width = inpWidth.valueAsNumber;*/
 		var length = inpLength.valueAsNumber; 
+		console.log(length);
 		//var v2 = function( x, y ){ return new THREE.Vector2( x, y ); };
 		//var v3 = function( x, y, z ){ return new THREE.Vector3( x, y, z ); };
 		var material = new THREE.LineBasicMaterial( { color:  0x99CC99, linewidth: 2 } );
