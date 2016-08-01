@@ -1,6 +1,8 @@
 # DXF to webgl translator
 
-Most translators import solids in to webgl in a "dumb" format. This is a python translator to convert DXF in to an ediatble three.js format.
+Most translators import solids in to webgl in a "dumb" format. This is a python translator to quickly convert DXF in to an ediatble three.js format.
+
+See example here - http://harrykeen18.github.io/dxf-three.js-JSON_translator/
 
 Current working directory  - dxf-three.js-JSON_translator\dxf-reader\03_3d_line_to, combines work from all others.
 
